@@ -29,7 +29,6 @@ pipeline {
         }
         stage("Nexus backup") {
             steps {
-             echo "Uploading war file to Nexus" 
             nexusArtifactUploader {
             nexusVersion('nexus3')
             protocol('http')
