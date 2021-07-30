@@ -26,7 +26,7 @@ pipeline {
         stage("Publish") {
             steps {
 				echo "Publishing artifact to nexus. "
-				nexusArtifactUploader artifacts: [[artifactId: 'tommy', classifier: '', file: 'project/target/project-1.0-RAMA.war', type: 'war']], credentialsId: '6fc5e49f-44e3-4af4-b231-7691368fd20e', groupId: 'com.tommy', nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '1.0.3'
+				nexusArtifactUploader artifacts: [[artifactId: 'tommy', classifier: '', file: 'project/target/project-1.0-RAMA.war', type: 'war']], credentialsId: '6fc5e49f-44e3-4af4-b231-7691368fd20e', groupId: 'com.tommy', nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '1.0.4'
             }
         }
 
