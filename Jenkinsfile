@@ -28,6 +28,7 @@ pipeline {
             }
         }
         stage("Nexus backup") {
+            freeStyleJob('NexusArtifactUploaderJob') {
             steps {
             nexusArtifactUploader {
             nexusVersion('nexus3')
@@ -44,6 +45,7 @@ pipeline {
                 file('project/target/project-1.0-RAMA.war')
             }
           }
+            }
             }
         }
     }
