@@ -28,25 +28,11 @@ pipeline {
             }
         }
         stage("Nexus backup") {
-            //freeStyleJob('NexusArtifactUploaderJob') {
+            
             steps {
-            nexusArtifactUploader {
-            nexusVersion('nexus3')
-            protocol('http')
-            nexusUrl('localhost:8081')
-            groupId('com.tommy')
-            version('1.0.3')
-            repository('maven-releases')
-            credentialsId('6fc5e49f-44e3-4af4-b231-7691368fd20e')
-            artifact {
-                artifactId('tommy')
-                type('war')
-                classifier('')
-                file('project/target/project-1.0-RAMA.war')
+            nexusArtifactUploader artifacts: [[artifactId: 'tommy', classifier: '', file: 'project/target/project-1.0-RAMA.war', type: 'war']], credentialsId: '6fc5e49f-44e3-4af4-b231-7691368fd20e', groupId: 'com.tommy', nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '1.0.3'
+
             }
-          }
-            }
-         //   }
         }
     }
 }
