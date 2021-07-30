@@ -7,7 +7,7 @@ pipeline {
             steps {
 				echo "Building project"
                 echo "Getting package from git." 
-                git 'https://github.com/abhjtgt/CI-with-Jenkins-in-AWS-Demo.git'
+                git branch: 'local-try', url: 'https://github.com/abhjtgt/CI-with-Jenkins-in-AWS-Demo.git'
             
                 echo "Maven - building package." 
                 bat "mvn -Dmaven.test.failure.ignore=true clean package"
