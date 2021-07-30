@@ -28,7 +28,7 @@ pipeline {
             }
         }
         stage("Nexus backup") {
-            freeStyleJob('NexusArtifactUploaderJob') {
+            //freeStyleJob('NexusArtifactUploaderJob') {
             steps {
             nexusArtifactUploader {
             nexusVersion('nexus3')
@@ -46,7 +46,7 @@ pipeline {
             }
           }
             }
-            }
+         //   }
         }
     }
 }
