@@ -33,7 +33,7 @@ pipeline {
         stage("Deploy") {
             steps {
 				echo "Deploying package to Web server. "
-				deploy adapters: [tomcat7(credentialsId: 'az-ubuntu-tomcat7', path: '', url: 'http://10.128.0.4:8080/')], contextPath: '/tommy', war: '**/*war'
+				deploy adapters: [tomcat7(credentialsId: 'az-ubuntu-tomcat7', path: '', url: 'http://10.128.0.4:8080/')], contextPath: '/Devops', war: '**/*war'
             }
         }
     }
