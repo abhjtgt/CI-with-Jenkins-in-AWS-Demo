@@ -1,7 +1,10 @@
 pipeline {
     agent any
     environment {
-        ver2 = "1.0"
+	    MVN_GROUPID = "com.tommy"
+	    MVN_REPOSITORY = "maven-releases"
+	    
+	    
     }
     
     stages {
@@ -16,8 +19,7 @@ pipeline {
             }
 
             post {
-                // If Maven was able to run the tests, even if some of the test
-                // failed, record the test results and archive the jar file.
+                // If Maven was able to run the tests, even if some of the test failed, record the test results and archive the jar file.
                 success {
                     junit '**/target/surefire-reports/TEST-*.xml'
                     archiveArtifacts '*/target/*.war'
@@ -29,20 +31,19 @@ pipeline {
             steps {
 		    script {
 			Date date = new Date()
-			String datePart = date.format("yy-MM-dd")
+			String datePart = date.format("yyyy-MM-dd")
 			String timePart = date.format("HH-mm-ss")
-			env.ver1 = datePart + "-" + timePart
-			echo "VERSION: ${ver2}"
+			env.version = datePart + "-" + timePart
 		    }
-		    echo "Publishing artifact to nexus." + env.ver1
-			nexusArtifactUploader artifacts: [[artifactId: 'tommy', classifier: '', file: 'project/target/project-1.0-RAMA.war', type: 'war']], credentialsId: 'az-ubuntu-nexus1', groupId: 'com.tommy', nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: env.ver1
+		    	echo "Publishing artifact to nexus as version: " + env.version
+			nexusArtifactUploader artifacts: [[artifactId: 'tommy', classifier: '', file: 'project/target/project-1.0-RAMA.war', type: 'war']], credentialsId: 'az-ubuntu-nexus1', groupId: env.MVN_GROUPID, nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: env.MVN_REPOSITORY, version: env.version
             }
         }
 
         stage("Deploy") {
             steps {
-				echo "Deploying package to Web server. "
-				deploy adapters: [tomcat7(credentialsId: 'az-ubuntu-tomcat7', path: '', url: 'http://10.128.0.4:8080/')], contextPath: '/Devops', war: '**/*war'
+			echo "Deploying package to Web server. "
+			deploy adapters: [tomcat7(credentialsId: 'az-ubuntu-tomcat7', path: '', url: 'http://10.128.0.4:8080/')], contextPath: '/Devops', war: '**/*war'
             }
         }
     }
