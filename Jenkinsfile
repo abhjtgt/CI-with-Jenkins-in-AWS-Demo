@@ -1,6 +1,8 @@
 pipeline {
     agent any
-
+    environment {
+        ver1 = "1.0"
+    }
     
     stages {
         stage('Build') {
@@ -29,10 +31,10 @@ pipeline {
 			Date date = new Date()
 			String datePart = date.format("yy-MM-dd")
 			String timePart = date.format("HH-mm-ss")
-			def ver1 = datePart + "-" + timePart
+			ver1 = datePart + "-" + timePart
 			    echo "VERSION: ${ver1}"
 		    }
-		    //echo "Publishing artifact to nexus. ${ver1}"
+		    echo "Publishing artifact to nexus." + env.ver1"
 			nexusArtifactUploader artifacts: [[artifactId: 'tommy', classifier: '', file: 'project/target/project-1.0-RAMA.war', type: 'war']], credentialsId: 'az-ubuntu-nexus1', groupId: 'com.tommy', nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '1.0.4'
             }
         }
