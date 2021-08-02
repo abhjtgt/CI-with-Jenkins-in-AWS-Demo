@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-				echo "Building project"
+		echo "Building project"
                 echo "Getting package from git." 
                 git branch: 'local-try', url: 'https://github.com/abhjtgt/CI-with-Jenkins-in-AWS-Demo.git'
             
@@ -32,10 +32,10 @@ pipeline {
 			String datePart = date.format("yy-MM-dd")
 			String timePart = date.format("HH-mm-ss")
 			env.ver1 = datePart + "-" + timePart
-			    echo "VERSION: ${ver2}"
+			echo "VERSION: ${ver2}"
 		    }
 		    echo "Publishing artifact to nexus." + env.ver1
-			nexusArtifactUploader artifacts: [[artifactId: 'tommy', classifier: '', file: 'project/target/project-1.0-RAMA.war', type: 'war']], credentialsId: 'az-ubuntu-nexus1', groupId: 'com.tommy', nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '1.0.4'
+			nexusArtifactUploader artifacts: [[artifactId: 'tommy', classifier: '', file: 'project/target/project-1.0-RAMA.war', type: 'war']], credentialsId: 'az-ubuntu-nexus1', groupId: 'com.tommy', nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: env.ver1
             }
         }
 
