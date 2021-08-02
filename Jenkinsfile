@@ -35,7 +35,7 @@ pipeline {
 			String timePart = date.format("HH-mm-ss")
 			env.version = datePart + "-" + timePart
 		    }
-		    	echo "Publishing artifact to nexus as version: " + env.version
+			echo "Publishing artifact to nexus" 
 			nexusArtifactUploader artifacts: [[artifactId: 'tommy', classifier: '', file: 'project/target/project-1.0-RAMA.war', type: 'war']], credentialsId: 'az-ubuntu-nexus1', groupId: env.MVN_GROUPID, nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: env.MVN_REPOSITORY, version: env.version
             }
         }
