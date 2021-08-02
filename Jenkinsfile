@@ -30,7 +30,7 @@ pipeline {
 			String datePart = date.format("yy-MM-dd")
 			String timePart = date.format("HH-mm-ss")
 			def ver1 = datePart + "-" + timePart
-			    println "VERSION:" + ${ver1}
+			    echo "VERSION: ${ver1}"
 		    }
 		    echo "Publishing artifact to nexus. ${ver1}"
 			nexusArtifactUploader artifacts: [[artifactId: 'tommy', classifier: '', file: 'project/target/project-1.0-RAMA.war', type: 'war']], credentialsId: 'az-ubuntu-nexus1', groupId: 'com.tommy', nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'maven-releases', version: '1.0.4'
