@@ -28,7 +28,7 @@ pipeline {
 	stage('Quality check') {
             steps {
 		echo "Checking code quality with sonarQube." 
-                sh "mvn sonar:sonar -Dsonar.projectKey=CI-with-Jenkins -Dsonar.host.url=http://127.0.0.1:9000 -Dsonar.login=env.SNR_TKN"
+                sh "mvn sonar:sonar -Dsonar.projectKey=CI-with-Jenkins -Dsonar.host.url=http://127.0.0.1:9000 -Dsonar.login=$SNR_TKN"
             }
         }
 
