@@ -25,6 +25,12 @@ pipeline {
                 }
             }
         }
+	stage('Quality check') {
+            steps {
+		echo "Checking code quality with sonarQube." 
+                sh "mvn sonar:sonar -Dsonar.projectKey=CI-with-Jenkins -Dsonar.host.url=http://127.0.0.1:9000 -Dsonar.login=4cc74f5cc72617102abfc0e28e9405c3e1879394"
+            }
+        }
 
         stage("Publish") {
             steps {
