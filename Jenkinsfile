@@ -3,7 +3,7 @@ pipeline {
     environment {
 	    MVN_GROUPID = "com.tommy"
 	    MVN_REPOSITORY = "maven-releases"
-	    DEST = ""
+	    SNR_TKN = "4cc74f5cc72617102abfc0e28e9405c3e1879394"
     }
     
     stages {
