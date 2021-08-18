@@ -54,7 +54,7 @@ pipeline {
     }
     post {
         always {
-		echo "Sending build status with email"
+		echo "Sending build status with email update"
               	emailext (
 			subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
 			body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
