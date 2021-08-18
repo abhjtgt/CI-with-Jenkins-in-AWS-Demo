@@ -4,6 +4,7 @@ pipeline {
 	    MVN_GROUPID = "com.tommy"
 	    MVN_REPOSITORY = "maven-releases"
 	    SNR_TKN = "4cc74f5cc72617102abfc0e28e9405c3e1879394"
+	    EMAIL_DL = "abhijitdd@yahoo.co.in"
     }
     
     stages {
@@ -59,7 +60,7 @@ pipeline {
 			subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
 			body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
 			<p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-			recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']],
+			recipientProviders: env.EMAIL_DL,
             )
         }
     }
