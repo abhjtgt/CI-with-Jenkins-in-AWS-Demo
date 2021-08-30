@@ -27,7 +27,7 @@ pipeline {
 		    }
 	    }
 	
-	    stage("Publish") {
+	    stage("Publish to nexus") {
 		    steps {
 			    script {
 				Date date = new Date()
@@ -40,7 +40,7 @@ pipeline {
 		    }
 		}
 
-	    stage("Deploy") {
+	    stage("Deploy to web server") {
 		    steps {
 				echo "Deploying package to Web server. "
 				deploy adapters: [tomcat7(credentialsId: 'az-ubuntu-tomcat7', path: '', url: 'http://10.128.0.4:8080/')], contextPath: '/Devops', war: '**/*war'
