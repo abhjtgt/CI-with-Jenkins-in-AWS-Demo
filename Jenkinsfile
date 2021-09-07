@@ -47,7 +47,7 @@ pipeline {
 		    steps {
 				echo "Stopping and removing old container, if exists" 
 			    	sh "docker stop $(docker ps --filter 'Name=$DKR_CONT_NAME' -q) 2>/dev/null"
-			    	sh "docker rm $(docker ps -a --filter "Name=ci-demo1" -q) 2>/dev/null"
+			    	sh "docker rm $(docker ps -a --filter 'Name=ci-demo1' -q) 2>/dev/null"
 				echo "Running docker image $DKR_IMAGE_NAME"
 			    	sh "docker run --name $DKR_CONT_NAME -d -p 8085:8080 $DKR_IMAGE_NAME"
 		    }
