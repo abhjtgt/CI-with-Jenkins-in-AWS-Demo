@@ -9,13 +9,6 @@ pipeline {
     
     stages {
         
-/*	    stage('Quality check') {
-		    steps {
-			    echo "Checking code quality with sonarQube." 
-			    sh "mvn sonar:sonar -Dsonar.projectKey=CI-with-Jenkins -Dsonar.host.url=http://127.0.0.1:9000 -Dsonar.login=$SNR_TKN"
-		    }
-	    }
-*/	
 	    stage('Build code') {
 		    steps {
 			echo "Building project"
@@ -28,10 +21,18 @@ pipeline {
 	
 	    stage("Build image") {
 		    steps {
-			    echo "Building image with new built artifact"
-			    sh "ls -lrt"
-			    sh "cp project/target/*war . "
-			    sh "ls -lrt"
+			    sh "
+			    echo "Checking for artifact" 
+			    artifact = $(ls -1t *war| head -1)
+			    if [ -z $artifact ] ;
+			    then
+			    	echo "Artifact not found. 
+			    else
+				echo "Artfact found $artifact. Building new image."    
+			    	ls -lrt 
+			    fi
+			    "
+			    
 
 		    }
 		}
