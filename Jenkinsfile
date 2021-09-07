@@ -29,12 +29,12 @@ pipeline {
 			    if [ -z $artifact ] ;
 			    then
 			    	echo "Artifact not found" 
+				exit 1
 			    else
-				echo "Artifact found $artifact. Building new image."    
+				echo "Artifact found $artifact. Building new docker image."    
 			    	cd ../..
-				cp project/target/${artifact} .
+				docker build -t ci-demo:1 .
 			    fi
-			    exit 123
 			    '''
 			    
 
