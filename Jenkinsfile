@@ -9,53 +9,38 @@ pipeline {
     
     stages {
         
-	    stage('Quality check') {
+/*	    stage('Quality check') {
 		    steps {
 			    echo "Checking code quality with sonarQube." 
 			    sh "mvn sonar:sonar -Dsonar.projectKey=CI-with-Jenkins -Dsonar.host.url=http://127.0.0.1:9000 -Dsonar.login=$SNR_TKN"
 		    }
 	    }
-	
-	    stage('Build/Package') {
+*/	
+	    stage('Build code') {
 		    steps {
 			echo "Building project"
-			echo "Getting package from git." 
-			git branch: 'assignment1', url: 'https://github.com/abhjtgt/CI-with-Jenkins-in-AWS-Demo.git'
+			git branch: 'assignment3', url: 'https://github.com/abhjtgt/CI-with-Jenkins-in-AWS-Demo.git'
 
 			echo "Maven - building package." 
 			sh "mvn -Dmaven.test.failure.ignore=true clean package"
 		    }
 	    }
 	
-	    stage("Publish to nexus") {
+	    stage("Build image") {
 		    steps {
-			    script {
-				Date date = new Date()
-				String datePart = date.format("yyyy-MM-dd")
-				String timePart = date.format("HH-mm-ss")
-				env.version = datePart + "-" + timePart
-			    }
-				echo "Publishing artifact to nexus" 
-				nexusArtifactUploader artifacts: [[artifactId: 'tommy', classifier: '', file: 'project/target/project-1.0-RAMA.war', type: 'war']], credentialsId: 'az-ubuntu-nexus1', groupId: env.MVN_GROUPID, nexusUrl: 'localhost:8081', nexusVersion: 'nexus3', protocol: 'http', repository: env.MVN_REPOSITORY, version: env.version
+			    echo "Building image with new built artifact"
+			    sh "ls -lrt"
+			    sh "cp project/target/*war . 
+			    sh "ls -lrt"
+
 		    }
 		}
 
-	    stage("Deploy to web server") {
+	    stage("Run image") {
 		    steps {
-				echo "Deploying package to Web server. "
-				deploy adapters: [tomcat7(credentialsId: 'az-ubuntu-tomcat7', path: '', url: 'http://10.128.0.4:8080/')], contextPath: '/Devops', war: '**/*war'
+				echo "Running docker image"
+				sh "docker image"
 		    }
 		}
-    }
-    post {
-        always {
-		echo "Sending build status with email update"
-              	emailext (
-			subject: "STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-			body: """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
-			<p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>""",
-			to: env.EMAIL_DL,
-            )
-        }
     }
 }
