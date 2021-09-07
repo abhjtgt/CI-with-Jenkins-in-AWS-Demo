@@ -27,7 +27,7 @@ pipeline {
 			    
 			    if [ -z $artifact ] ;
 			    then
-			    	echo "Artifact not found. 
+			    	echo "Artifact not found" 
 			    else
 				echo "Artfact found $artifact. Building new image."    
 			    	ls -lrt 
