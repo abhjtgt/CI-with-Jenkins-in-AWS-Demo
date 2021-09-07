@@ -39,7 +39,7 @@ pipeline {
 	    stage("Run image") {
 		    steps {
 				echo "Running docker image"
-				sh "docker image"
+				sh "docker image "
 		    }
 		}
     }
