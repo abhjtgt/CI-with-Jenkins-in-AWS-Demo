@@ -21,7 +21,7 @@ pipeline {
 	
 	    stage("Build image") {
 		    steps {
-			    sh "
+			    sh '''
 			    echo "Checking for artifact" 
 			    artifact = $(ls -1t *war| head -1)
 			    if [ -z $artifact ] ;
@@ -31,7 +31,7 @@ pipeline {
 				echo "Artfact found $artifact. Building new image."    
 			    	ls -lrt 
 			    fi
-			    "
+			    '''
 			    
 
 		    }
