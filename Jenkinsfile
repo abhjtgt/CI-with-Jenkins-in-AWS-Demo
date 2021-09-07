@@ -30,7 +30,7 @@ pipeline {
 		    steps {
 			    echo "Building image with new built artifact"
 			    sh "ls -lrt"
-			    sh "cp project/target/*war . 
+			    sh "cp project/target/*war . "
 			    sh "ls -lrt"
 
 		    }
