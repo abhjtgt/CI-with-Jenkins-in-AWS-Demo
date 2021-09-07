@@ -23,15 +23,18 @@ pipeline {
 		    steps {
 			    sh '''
 			    echo "Checking for artifact" 
+			    cd project/target
 			    artifact=$(ls -1t *war| head -1)
 			    
 			    if [ -z $artifact ] ;
 			    then
 			    	echo "Artifact not found" 
 			    else
-				echo "Artfact found $artifact. Building new image."    
-			    	ls -lrt 
+				echo "Artifact found $artifact. Building new image."    
+			    	cd ../..
+				cp project/target/${artifact} .
 			    fi
+			    exit 123
 			    '''
 			    
 
