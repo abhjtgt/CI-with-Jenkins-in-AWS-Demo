@@ -23,7 +23,8 @@ pipeline {
 		    steps {
 			    sh '''
 			    echo "Checking for artifact" 
-			    artifact = $(ls -1t *war| head -1)
+			    artifact=$(ls -1t *war| head -1)
+			    
 			    if [ -z $artifact ] ;
 			    then
 			    	echo "Artifact not found. 
