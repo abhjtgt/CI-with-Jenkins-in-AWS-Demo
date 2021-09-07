@@ -6,7 +6,7 @@ pipeline {
 	    SNR_TKN = "4cc74f5cc72617102abfc0e28e9405c3e1879394"
 	    EMAIL_DL = "abhijitdd@yahoo.co.in"
 	    DKR_IMAGE_NAME = "ci-demo:latest"
-	    DKR_CONT_NAME = "ci-demo1
+	    DKR_CONT_NAME = "ci-demo1"
     }
     
     stages {
