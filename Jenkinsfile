@@ -33,7 +33,7 @@ pipeline {
 			    else
 				echo "Artifact found $artifact. Building new docker image."    
 			    	cd ../..
-				docker build -t ci-demo:1 . --build-arg WAR="project/target/${artifact}"
+				docker build -t ci-demo:1 . --build-arg WAR="${artifact}"
 			    fi
 			    '''
 			    
