@@ -5,6 +5,8 @@ pipeline {
 	    MVN_REPOSITORY = "maven-releases"
 	    SNR_TKN = "4cc74f5cc72617102abfc0e28e9405c3e1879394"
 	    EMAIL_DL = "abhijitdd@yahoo.co.in"
+	    DKR_IMAGE_NAME = "ci-demo:latest"
+	    DKR_CONT_NAME = "ci-demo1
     }
     
     stages {
@@ -33,7 +35,7 @@ pipeline {
 			    else
 				echo "Artifact found $artifact. Building new docker image."    
 			    	cd ../..
-				docker build -t ci-demo:1 . --build-arg WAR="${artifact}"
+				docker build -t $DKR_IMAGE_NAME . --build-arg WAR="${artifact}"
 			    fi
 			    '''
 			    
@@ -43,8 +45,8 @@ pipeline {
 
 	    stage("Run image") {
 		    steps {
-				echo "Running docker image"
-				sh "docker image "
+				echo "Running docker image $DKR_IMAGE_NAME"
+				sh "docker run --name $DKR_CONT_NAME -d -p 8085:8080 $DKR_IMAGE_NAME"
 		    }
 		}
     }
