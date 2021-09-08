@@ -55,6 +55,8 @@ pipeline {
 				fi					
 				echo "Running docker image $DKR_IMAGE_NAME"
 			    	docker run --name $DKR_CONT_NAME -d -p 8085:8080 $DKR_IMAGE_NAME
+				
+				echo "Application is up at http://localhost:8085/ci-demo/"
 				'''
 		    }
 		}
